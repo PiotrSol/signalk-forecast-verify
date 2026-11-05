@@ -1,0 +1,50 @@
+{
+  "name": "signalk-forecast-verify",
+  "version": "0.1.0",
+  "description": "Signal K web app comparing measured WMO wind and gust with forecasts from many weather models (ECMWF, NOAA GFS, ICON, AROME, UKMO and more)",
+  "main": "index.js",
+  "scripts": {
+    "build": "mkdir -p public/vendor && cp lib/verify.js public/verify.js && cp node_modules/chart.js/dist/chart.umd.min.js node_modules/chart.js/LICENSE.md public/vendor/ && mv public/vendor/LICENSE.md public/vendor/chart.js-LICENSE.md",
+    "pretest": "npm run build",
+    "test": "node --test",
+    "prepack": "npm run build",
+    "mock": "node test-support/mock-server.js"
+  },
+  "keywords": [
+    "signalk-node-server-plugin",
+    "signalk-webapp",
+    "signalk-category-weather",
+    "wind",
+    "forecast",
+    "verification",
+    "wmo"
+  ],
+  "author": "Piotr <piotr.pingo@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PiotrSol/signalk-forecast-verify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PiotrSol/signalk-forecast-verify/issues"
+  },
+  "homepage": "https://github.com/PiotrSol/signalk-forecast-verify#readme",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "chart.js": "4.5.1"
+  },
+  "files": [
+    "index.js",
+    "lib/",
+    "public/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "signalk": {
+    "displayName": "Wind Forecast Check",
+    "appIcon": "./app-icon.svg"
+  }
+}
