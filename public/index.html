@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Wind forecast check</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 22h18M4 16h22a4 4 0 1 0-4-4M4 28h12a3 3 0 1 1-3 3' fill='none' stroke='%23b0287a' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="masthead">
+    <div>
+      <h1>Wind forecast check</h1>
+      <p class="where" id="where">Locating vessel…</p>
+    </div>
+    <button type="button" id="night" class="night-toggle" aria-pressed="false" title="Red light for use on watch">Night</button>
+  </header>
+
+  <form class="controls" id="controls" aria-label="Comparison settings">
+    <label>Period
+      <select id="period">
+        <option value="1">Last 24 hours</option>
+        <option value="3" selected>Last 3 days</option>
+        <option value="7">Last 7 days</option>
+        <option value="10">Last 10 days</option>
+      </select>
+    </label>
+    <label>Forecast issued
+      <select id="lead">
+        <option value="0" selected>Latest run (0–24 h ahead)</option>
+        <option value="1">1 day before</option>
+        <option value="2">2 days before</option>
+      </select>
+    </label>
+    <label>Units
+      <select id="units">
+        <option value="kn" selected>knots</option>
+        <option value="ms">m/s</option>
+        <option value="kmh">km/h</option>
+      </select>
+    </label>
+    <label class="check"><input type="checkbox" id="stationary" checked> Score moored and at-anchor hours only</label>
+  </form>
+
+  <p class="message" id="message" role="status" hidden></p>
+
+  <main>
+    <section class="panel" aria-labelledby="mean-title">
+      <h2 id="mean-title">Mean wind at 10 m</h2>
+      <p class="explain">Forecast wind at the hour against the measured 10-minute WMO mean ending at that hour.</p>
+      <div class="chart"><canvas id="meanChart" aria-label="Mean wind, measured and forecast"></canvas></div>
+    </section>
+
+    <section class="panel" aria-labelledby="gust-title">
+      <h2 id="gust-title">Gust, highest in the hour</h2>
+      <p class="explain">Forecast gust against the highest measured WMO 3-second gust in the hour before.</p>
+      <div class="chart"><canvas id="gustChart" aria-label="Gust, measured and forecast"></canvas></div>
+    </section>
+
+    <section class="panel" aria-labelledby="dir-title">
+      <h2 id="dir-title">Wind direction</h2>
+      <p class="explain">Forecast direction at the hour against the measured 10-minute WMO mean direction, where the wind blows from.</p>
+      <div class="chart"><canvas id="dirChart" aria-label="Wind direction, measured and forecast"></canvas></div>
+    </section>
+
+    <section class="panel scores" aria-labelledby="score-title">
+      <h2 id="score-title">Which model to trust here</h2>
+      <p class="explain" id="score-explain">Forecast minus measured over the scored hours. Bias shows whether a model runs high or low; average error is how far off it is, either way.</p>
+      <div class="table-wrap">
+        <table id="scores">
+          <thead>
+            <tr>
+              <th scope="col" class="model">Model</th>
+              <th scope="col">Mean bias</th>
+              <th scope="col">Mean error</th>
+              <th scope="col">Gust bias</th>
+              <th scope="col">Gust error</th>
+              <th scope="col" title="Positive: the forecast direction is veered (clockwise) from the measured one">Direction bias</th>
+              <th scope="col">Direction error</th>
+              <th scope="col" title="Scored hours with measured and forecast mean wind, gust and direction">Hours, mean / gust / direction</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="notes" aria-label="About the data">
+      <ul id="notes"></ul>
+    </section>
+  </main>
+
+  <script src="vendor/chart.umd.min.js"></script>
+  <script src="verify.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

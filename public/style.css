@@ -1,0 +1,154 @@
+/* Colours of the paper chart: soundings ink, shallow-water blue, chart magenta. */
+:root {
+  color-scheme: light;
+  --paper: #fbfcfa;
+  --shoal: #e3edf1;
+  --ink: #15191c;
+  --ink-soft: #4a5560;
+  --rule: #c9d6dc;
+  --magenta: #b0287a;
+  --high: #9a3412;
+  --low: #1d4f91;
+  --focus: #b0287a;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #0f1b26;
+    --shoal: #16283a;
+    --ink: #e6edf2;
+    --ink-soft: #9fb0bf;
+    --rule: #2a3f52;
+    --magenta: #e05aa8;
+    --high: #f0a27a;
+    --low: #8bb8f0;
+    --focus: #e05aa8;
+  }
+}
+
+/* Red light for the chart table at night: only red, low brightness. */
+:root[data-theme="night"] {
+  color-scheme: dark;
+  --paper: #000;
+  --shoal: #140202;
+  --ink: #c8382a;
+  --ink-soft: #8a2318;
+  --rule: #3a0c07;
+  --magenta: #ff4a33;
+  --high: #ff6a50;
+  --low: #a82c1e;
+  --focus: #ff4a33;
+}
+
+*, *::before, *::after { box-sizing: inherit; }
+
+html, body { margin: 0; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font: 1rem/1.5 var(--sans);
+  font-variant-numeric: tabular-nums;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1.25rem clamp(0.75rem, 3vw, 2rem) 3rem;
+}
+
+.masthead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 3px double var(--ink);
+  padding-bottom: 0.75rem;
+}
+
+h1 {
+  font: 600 clamp(1.6rem, 3.5vw, 2.25rem)/1.1 var(--serif);
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+.where { margin: 0.25rem 0 0; color: var(--ink-soft); }
+
+.night-toggle {
+  font: 600 0.95rem var(--sans);
+  color: var(--ink);
+  background: transparent;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+}
+.night-toggle[aria-pressed="true"] { background: var(--magenta); color: #000; border-color: var(--magenta); }
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  align-items: flex-end;
+  padding: 1rem 0;
+}
+.controls label { display: grid; gap: 0.2rem; font-size: 0.85rem; color: var(--ink-soft); }
+.controls label.check { display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; color: var(--ink); padding-bottom: 0.35rem; }
+.controls select {
+  font: 1rem var(--sans);
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.35rem 0.5rem;
+}
+.controls input[type="checkbox"] { width: 1.1rem; height: 1.1rem; accent-color: var(--magenta); }
+
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.message {
+  border-left: 4px solid var(--magenta);
+  background: var(--shoal);
+  padding: 0.6rem 0.9rem;
+  margin: 0 0 1rem;
+}
+
+.panel { margin: 0 0 2rem; }
+.panel h2 { font: 600 1.25rem/1.2 var(--serif); margin: 0 0 0.15rem; }
+.explain { margin: 0 0 0.6rem; color: var(--ink-soft); max-width: 70ch; font-size: 0.95rem; }
+
+.chart {
+  position: relative;
+  height: clamp(15rem, 38vh, 24rem);
+  background: var(--shoal);
+  border-radius: 6px;
+  padding: 0.5rem 0.5rem 0.25rem;
+}
+
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; min-width: 34rem; }
+th, td { padding: 0.45rem 0.6rem; text-align: right; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+th { font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); border-bottom: 1.5px solid var(--ink); }
+th.model, td.model { text-align: left; }
+td .model-name { display: inline-flex; align-items: center; gap: 0.5rem; }
+.swatch { width: 1.1rem; height: 3px; border-radius: 2px; flex: none; }
+tr.best td { font-weight: 600; }
+tr.best .model-name::after { content: "best here"; font-size: 0.75rem; font-weight: 600; color: var(--magenta); border: 1px solid var(--magenta); border-radius: 999px; padding: 0 0.45rem; }
+.high { color: var(--high); }
+.low { color: var(--low); }
+.none { color: var(--ink-soft); }
+
+.notes ul { margin: 0; padding-left: 1.1rem; color: var(--ink-soft); font-size: 0.9rem; max-width: 75ch; }
+.notes li { margin: 0.25rem 0; }
+
+@media (max-width: 40rem) {
+  .masthead { align-items: flex-start; }
+  .controls { gap: 0.6rem 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
