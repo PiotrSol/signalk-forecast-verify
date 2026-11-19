@@ -1,10 +1,10 @@
 {
   "name": "signalk-forecast-verify",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Signal K web app comparing measured WMO wind and gust with forecasts from many weather models (ECMWF, NOAA GFS, ICON, AROME, UKMO and more)",
   "main": "index.js",
   "scripts": {
-    "build": "mkdir -p public/vendor && cp lib/verify.js public/verify.js && cp node_modules/chart.js/dist/chart.umd.min.js node_modules/chart.js/LICENSE.md public/vendor/ && mv public/vendor/LICENSE.md public/vendor/chart.js-LICENSE.md",
+    "build": "node scripts/build.js",
     "pretest": "npm run build",
     "test": "node --test",
     "prepack": "npm run build",
