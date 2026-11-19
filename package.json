@@ -1,6 +1,6 @@
 {
   "name": "signalk-forecast-verify",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Signal K web app comparing measured WMO wind and gust with forecasts from many weather models (ECMWF, NOAA GFS, ICON, AROME, UKMO and more)",
   "main": "index.js",
   "scripts": {
@@ -41,10 +41,16 @@
     "public/",
     "README.md",
     "LICENSE",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "app-icon.svg",
+    "screenshots"
   ],
   "signalk": {
     "displayName": "Wind Forecast Check",
-    "appIcon": "./app-icon.svg"
+    "appIcon": "./app-icon.svg",
+    "screenshots": [
+      "./screenshots/forecast-charts.png",
+      "./screenshots/model-ranking.png"
+    ]
   }
 }
